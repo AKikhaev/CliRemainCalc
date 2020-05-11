@@ -1,0 +1,19 @@
+{
+  "name": "akikhaev/cli-remain-calc",
+  "description": "Calculate and show processing and remain time of any process",
+  "license": "MIT",
+  "version": "1.0",
+  "authors": [
+    {
+      "name": "AKikhaev",
+      "email": "aliday.pr@gmail.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "autoload": {
+    "psr-4": {
+      "AKikhaev\\CliRemainCalc": "src/CliRemainCalc.php"
+    }
+  },
+  "require": {}
+}
