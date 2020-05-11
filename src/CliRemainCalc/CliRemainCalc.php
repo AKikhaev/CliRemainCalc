@@ -1,6 +1,6 @@
 <?php
 
-namespace AKikhaev;
+namespace AKikhaev\CliRemainCalc;
 
 class CliRemainCalc
 {
