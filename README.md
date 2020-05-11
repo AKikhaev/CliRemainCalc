@@ -23,7 +23,7 @@ AKikhaev CliRemainCalc
 ##### Requirements
 * PHP 5+
 
-##### installation
+##### Installation
 * composer.json:
 ```
     {
@@ -34,7 +34,7 @@ AKikhaev CliRemainCalc
             }
         ],
         "require": {
-            "akikhaev/cli-remain-calc": "@dev"
+            "akikhaev/cli-remain-calc": "~1.0"
         }
     }
 ```
