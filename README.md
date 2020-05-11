@@ -1,6 +1,7 @@
 AKikhaev CliRemainCalc
-##### Что это?
-Calculate and show processing and remain time of any process :
+
+* Calculate and show processing and remain time of any process
+* Version: 1.0
 
 ##### Using way
     $calc = new CliRemainCalc( < array | instance of Countable | int > );
