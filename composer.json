@@ -12,7 +12,7 @@
   "minimum-stability": "stable",
   "autoload": {
     "psr-4": {
-      "AKikhaev\\CliRemainCalc": "src/CliRemainCalc.php"
+      "AKikhaev\\": "src"
     }
   },
   "require": {}
