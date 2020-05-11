@@ -1,4 +1,4 @@
-##AKikhaev CliRemainCalc
+AKikhaev CliRemainCalc
 ##### Что это?
 Calculate and show processing and remain time of any process :
 
@@ -21,3 +21,20 @@ Calculate and show processing and remain time of any process :
 
 ##### Requirements
 * PHP 5+
+
+##### installation
+* composer.json:
+```
+    {
+        "repositories": [
+            {
+                "url": "https://github.com/AKikhaev/CliRemainCalc.git",
+                "type": "vcs"
+            }
+        ],
+        "require": {
+            "akikhaev/cli-remain-calc": "@dev"
+        }
+    }
+```
+`composer install`

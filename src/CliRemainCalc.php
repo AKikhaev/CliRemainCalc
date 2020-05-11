@@ -11,6 +11,14 @@ class CliRemainCalc
     private $str;
     private $value = 0;
 
+    private static function _ls($code = '0'){
+        //http://manpages.ubuntu.com/manpages/trusty/man4/console_codes.4.html
+        //http://wiki.bash-hackers.org/scripting/terminalcodes
+        //http://ascii-table.com/ansi-escape-sequences.php
+        //http://ascii-table.com/ansi-escape-sequences-vt-100.php
+        return "\e[".$code."m"; // \e = \x1b = \033
+    }
+
     /**
      * remainCalc constructor.
      * @param int $count
@@ -71,31 +79,40 @@ class CliRemainCalc
      * @param string $msgTitle
      * Сообщение в заголовок
      */
-    function plot($num = -1, $printLog = true, $msg = '', $msgTitle = '')
+    public function plot($num = -1, $printLog = true, $msg = '', $msgTitle = '')
     {
-        if ($num === -1) $num = ++$this->value;
+        if ($num === -1) {
+            $num = ++$this->value;
+        }
         $elapsed = microtime(true) - $this->started;
-        if (($elapsed < $this->nextPlot) && ($num != $this->count) && $printLog !== 1)
+        if (($elapsed < $this->nextPlot) && ($num != $this->count) && $printLog !== 1) {
             return;
-        if ($elapsed == 0) $elapsed = 1;
+        }
+        if ($elapsed === 0) $elapsed = 1;
         $speed = ($num - $this->skip) / $elapsed;
-        if ($speed != 0) {
+        if ($speed !== 0) {
             $finish = ($this->count - $this->skip) / $speed;
             $remain = $finish - $elapsed;
         } else $remain = 0;
-        if ($remain < 0) $remain = 0;
+        if ($remain < 0) {
+            $remain = 0;
+        }
         $elapsed_str = $this->intToTime($elapsed);
         $remain_str = $this->intToTime($remain);
-        if ($printLog) echo "\r\e[2K" .
-            _ls(36) . $elapsed_str .
-            _ls(37) . $this->str .
-            _ls(35) . $num . '/' . $this->count .
-            _ls(32) . ' ' . number_format($speed, 2, '.', '') . '/s' .
-            _ls(33) . ' remain: ' . $remain_str . '  ' . _ls(1) . _ls(34) . $msg . _ls(0);
-        if ($num == $this->count || $printLog === 1) echo "\n";
+        if ($printLog) {
+            echo "\r\e[2K" .
+                self::_ls(36) . $elapsed_str .
+                self::_ls(37) . $this->str .
+                self::_ls(35) . $num . '/' . $this->count .
+                self::_ls(32) . ' ' . number_format($speed, 2, '.', '') . '/s' .
+                self::_ls(33) . ' remain: ' . $remain_str . '  ' . self::_ls(1) . self::_ls(34) . $msg . self::_ls();
+        }
+        if ($num === $this->count || $printLog === 1) {
+            echo "\n";
+        }
 
         $percent = str_replace('.', '%.', number_format($num / $this->count * 100, 2, '.', ''));
-        echo "\033]0;".$percent." $this->str $num/$this->count $remain_str $elapsed_str $msgTitle"."\007";
+        echo "\e]0;".$percent." $this->str $num/$this->count $remain_str $elapsed_str $msgTitle"."\007";
 
         @ob_flush();
         $this->nextPlot = $elapsed + 5;
