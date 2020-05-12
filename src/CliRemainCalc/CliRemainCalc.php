@@ -2,6 +2,8 @@
 
 namespace AKikhaev\CliRemainCalc;
 
+use AKikhaev\Terminal\Terminal;
+
 class CliRemainCalc
 {
     private $started;
@@ -10,14 +12,6 @@ class CliRemainCalc
     private $nextPlot = 0;
     private $str;
     private $value = 0;
-
-    private static function _ls($code = '0'){
-        //http://manpages.ubuntu.com/manpages/trusty/man4/console_codes.4.html
-        //http://wiki.bash-hackers.org/scripting/terminalcodes
-        //http://ascii-table.com/ansi-escape-sequences.php
-        //http://ascii-table.com/ansi-escape-sequences-vt-100.php
-        return "\e[".$code."m"; // \e = \x1b = \033
-    }
 
     /**
      * remainCalc constructor.
@@ -44,7 +38,7 @@ class CliRemainCalc
     public function init($count, $str = '', $skip = 0)
     {
         $count_value = 0;
-        if (is_array($count) || $count instanceof Countable) $count_value = count($count);
+        if (is_array($count) || $count instanceof \Countable) $count_value = count($count);
         if (is_numeric($count)) $count_value = $count;
 
         if ($count_value === 0)
@@ -101,11 +95,11 @@ class CliRemainCalc
         $remain_str = $this->intToTime($remain);
         if ($printLog) {
             echo "\r\e[2K" .
-                self::_ls(36) . $elapsed_str .
-                self::_ls(37) . $this->str .
-                self::_ls(35) . $num . '/' . $this->count .
-                self::_ls(32) . ' ' . number_format($speed, 2, '.', '') . '/s' .
-                self::_ls(33) . ' remain: ' . $remain_str . '  ' . self::_ls(1) . self::_ls(34) . $msg . self::_ls();
+                Terminal::color(Terminal::CYAN) . $elapsed_str .
+                Terminal::color(Terminal::GRAY) . $this->str .
+                Terminal::color(Terminal::VIOLET) . $num . '/' . $this->count .
+                Terminal::color(Terminal::GREEN) . ' ' . number_format($speed, 2, '.', '') . '/s' .
+                Terminal::color(Terminal::BROWN) . ' remain: ' . $remain_str . '  ' . Terminal::es(Terminal::BOLD) . Terminal::color(Terminal::BLUE) . $msg . Terminal::color();
         }
         if ($num === $this->count || $printLog === 1) {
             echo "\n";

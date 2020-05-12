@@ -8,10 +8,18 @@
       "email": "aliday.pr@gmail.com"
     }
   ],
+  "repositories": [
+    {
+      "url": "https://github.com/AKikhaev/Terminal.git",
+      "type": "vcs"
+    }
+  ],
   "autoload": {
     "psr-4": {
       "AKikhaev\\CliRemainCalc\\": "src"
     }
   },
-  "require": {}
+  "require": {
+    "akikhaev/terminal": "~1.0"
+  }
 }
